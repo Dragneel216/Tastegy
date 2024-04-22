@@ -77,7 +77,8 @@
             margin-top: 2.5%;
             border-radius: 5px;
             border-radius: 10px;
-            box-shadow: 0 10px 20px rgb(0 0 0/0.5);}
+            box-shadow: 0 10px 20px rgb(0 0 0/0.5);
+        }
         .newhyt{
             display: block;
             height: 620px;
@@ -106,9 +107,15 @@
             text-align: center;
         }
         .alert{
-            width: 100%;
+            width: 95%;
+            height: 15px;
             background-color: green;
-            padding: 10px 20px;
+            text-align: center;
+            color: #fff;
+            font-size: 25px;
+            padding: 15px 20px 20px;
+            border-radius:30px;
+            visibility: hidden;
         }
         label{
             font-size: 90%;
@@ -130,7 +137,7 @@
             border-radius: 4px;
             margin-top: 1%;
         }
-        #button{
+        .button{
             background-color: rgb(44, 44, 44); 
             color: aliceblue; 
             width: 50%; 
@@ -141,7 +148,7 @@
             font-size: large;
             transition: transform 0.3s;
         }
-        #button:hover{
+        .button:hover{
             transform: scale(1.1);
         }
         img.icon:hover,img.icon:focus{
@@ -211,7 +218,7 @@
                     <form methods="post" id="loginForm">
                         <input class="login" id="username" placeholder="Username / Email" name="FName" type="text" required><br><br>
                         <input class="login" id="password" placeholder="Password" name="FName" type="password" required><br><br>
-                        <input id="button" name="but" type="submit" value="LOGIN">
+                        <input class="button" name="but" type="submit" value="LOGIN">
                         <h4 style="margin-left: 25%; color: #929292;">----------------------LOGIN WITH OTHERS----------------------</h4>
                         <a class="otherlog" href="https://mail.google.com">
                             <img src="gmailbw.png" class="icon" id="gmail">
@@ -220,21 +227,21 @@
                             <img src="fbbw.png" class="icon" id="fb">
                         </a>
                     </form>
-                    <form id="idk">
+                    <form class="idk">
                         <input type="button" class="switch" id="newuse" value="New User?" onclick="showhide()"><br><br>
                     </form>
                 </div>
             </div>
             <div class="main" id="new">
-                <div class="column form" id="newform">
-                    <div class="alert">Account Created</div>
+                <div class="alert">Account Created</div>
+                <div class="column form" style="padding-top: 0vh;" id="newform">
                     <h2 style="margin-left: 25%;">CREATE NEW ACCOUNT</h2>
                     <form action="register" methods="get" id="regForm">
                         <input class="login" placeholder="Username" id="regName" name="name" type="text" required><br><br>
                         <input class="login" placeholder="Email" id="regMail" name="mail" type="email" required><br><br>
                         <input class="login" placeholder="Password" id="regPwd" name="pwd" type="password" required><br><br>
                         <input class="login" placeholder="Confirm Password" id="conPwd" name="pwd" type="password" required><br><br>
-                        <input id="button" name="but" type="submit" value="CREATE ACCOUNT">
+                        <input class="button" name="but" type="submit" value="CREATE ACCOUNT">
                         <h4 style="margin-left: 25%; color: #929292;">----------------------LOGIN WITH OTHERS----------------------</h4>
                         <a class="otherlog" href="https://mail.google.com">
                             <img src="gmailbw.png" class="icon" id="gmail">
@@ -243,7 +250,7 @@
                             <img src="fbbw.png" class="icon" id="fb">
                         </a>
                     </form>
-                    <form id="idk">
+                    <form class="idk">
                         <input type="button" class="switch" id="olduse" value="Existing User?" onclick="showhide()"><br><br>
                     </form>
                 </div>
