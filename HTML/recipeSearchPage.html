@@ -4,14 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Recommendation</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="RecipeSearch.css">
 </head>
 <body>
     <div class="container">
         <h1>Find Recipes Based on Available Ingredients</h1>
         <form action="recommendation.php" method="post">
-            <label for="ingredients">Enter your available ingredients:</label>
+            <label for="ingredients">Enter your available ingredients</label>
             <input type="text" id="ingredients" name="ingredients" placeholder="E.g., chicken, rice, onion">
+            <div class="div1">
+                <div class="div1a">
+                    <label for="diet">Enter the diet</label>
+                <select id="diet" name="diet">
+                    <option value="default">None</option>
+                    <option value="Vegetarian">Vegetarian</option>
+                    <option value="NonVegetarian">Non-Vegetarian</option>
+                    <option value="Vegan">Vegan</option>
+                    <!-- Add more diet options as needed -->
+                </select>
+                </div>
+                <div class="div1a">
+                    <label for="cuisine">Enter the cuisine</label>
+                    <select id="cuisine" name="cuisine">
+                        <option value="" disabled selected>Enter the cuisine</option>
+                        <option value="SouthIndian">South Indian</option>
+                        <option value="NorthIndian">North Indian</option>
+                        <option value="Andhra">Andhra</option>
+                        <option value="Assamese">Assamese</option>
+                        <option value="Awadhi">Awadhi</option>
+                        <option value="Bengali">Bengali</option>
+                        <option value="Bihari">Bihari</option>
+                        <option value="Chettinad">Chettinad</option>
+                        <option value="Coorg">Coorg</option>
+                        <option value="Fusion">Fusion</option>
+                        <option value="Goan">Goan</option>
+                        <option value="Gujarati">Gujarati</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal">Himachal</option>
+                        <option value="Hyderabadi">Hyderabadi</option>
+                        <option value="Indian">Indian</option>
+                        <option value="IndoChinese">Indo Chinese</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Kannada">Kannada</option>
+                        <option value="Kashmiri">Kashmiri</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Kongunadu">Kongunadu</option>
+                        <option value="Konkan">Konkan</option>
+                        <option value="Lucknowi">Lucknowi</option>
+                        <option value="Maharashtrian">Maharashtrian</option>
+                        <option value="Malabar">Malabar</option>
+                        <option value="Malvani">Malvani</option>
+                        <option value="Mangalorean">Mangalorean</option>
+                        <option value="Mughlai">Mughlai</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="NorthEast">North East Indian</option>
+                        <option value="Oriya">Oriya</option>
+                        <option value="Parsi">Parsi</option>
+                        <option value="Punjabi">Punjabi</option>
+                        <option value="Rajasthani">Rajasthani</option>
+                        <option value="Sindhi">Sindhi</option>
+                        <option value="TamilNadu">Tamil Nadu</option>
+                        <option value="Udupi">Udupi</option>
+                        <option value="UttarPradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                    </select>
+                </div>
+            </div>
             <button type="submit">Search Recipes</button>
         </form>
     </div>

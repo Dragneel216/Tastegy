@@ -50,6 +50,23 @@ input[type="text"] {
     font-size: 16px;
 }
 
+select{
+    width: 250px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.div1{
+    display: flex;
+    text-align: center;
+}
+
+.div1a{
+    margin: 10px auto;
+}
+
 button {
     padding: 15px 24px;
     margin:20px 10px;
