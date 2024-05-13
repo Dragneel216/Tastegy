@@ -9,19 +9,18 @@
 <body>
     <div class="container">
         <h1>Find Recipes Based on Available Ingredients</h1>
-        <form action="recommendation.php" method="post">
+        <form action="/recommend" method="POST">
             <label for="ingredients">Enter your available ingredients</label>
             <input type="text" id="ingredients" name="ingredients" placeholder="E.g., chicken, rice, onion">
             <div class="div1">
                 <div class="div1a">
-                    <label for="diet">Enter the diet</label>
-                <select id="diet" name="diet">
-                    <option value="default">None</option>
-                    <option value="Vegetarian">Vegetarian</option>
-                    <option value="NonVegetarian">Non-Vegetarian</option>
-                    <option value="Vegan">Vegan</option>
-                    <!-- Add more diet options as needed -->
-                </select>
+                    <label for="diet">Enter the Diet</label>
+                    <select id="diet" name="diet">
+                        <option value="default">None</option>
+                        <option value="Vegetarian">Vegetarian</option>
+                        <option value="Non Vegetarian">Non-Vegetarian</option>
+                        <option value="Vegan">Ew vegan</option>
+                    </select>
                 </div>
                 <div class="div1a">
                     <label for="cuisine">Enter the cuisine</label>

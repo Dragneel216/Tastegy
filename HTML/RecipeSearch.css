@@ -18,11 +18,21 @@ body {
     position: relative; 
     z-index: 1; 
     max-width: 600px;
-    margin: 200px auto;
+    margin: 120px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.div1 {
+    display: flex;
+    max-width: 600px;
+}
+
+.div1a {
+    text-align: center;
+    margin: 10px auto;
 }
 
 h1 {
@@ -50,23 +60,13 @@ input[type="text"] {
     font-size: 16px;
 }
 
-select{
-    width: 250px;
+select {
+    width: 180px;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 16px;
 }
-
-.div1{
-    display: flex;
-    text-align: center;
-}
-
-.div1a{
-    margin: 10px auto;
-}
-
 button {
     padding: 15px 24px;
     margin:20px 10px;
