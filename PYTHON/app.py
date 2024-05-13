@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import pandas as pd
 import numpy as np
 import re
@@ -12,62 +12,45 @@ import multiprocessing as mp
 from sklearn.decomposition import NMF
 from sklearn.decomposition import LatentDirichletAllocation as LDA
 
+'''
+user_ingredients = ""
+user_dietary_preference = ""
+user_cuisine_type = ""
+'''
 app = Flask(__name__)
-
-@app.route("/", methods=["GET", "post"])
-def home():
-  if request.method == "GET":
-    # Display the form (using render_template)
-    return render_template("recipeSearchPage.html")
-  else:
-    # Process form data
-    user_ingredients = request.form.get("ingredients")
-    user_dietary_preference = request.form.get("diet")
-    user_cuisine_type = request.form.get("cuisine")
-
-    # Call function to write data to Colab sheet (explained later)
-    write_to_sheet(name, data)
-    
-    return "Data submitted successfully!"
-
-# Function to write data to Colab sheet (replace with your implementation)
-def write_to_sheet(name, data):
-  # Implement logic to write data to Colab sheet using Sheets API
-  # (This part requires additional setup explained in next step)
-  pass
 
 df=pd.read_csv("IndianFoodDatasetCSV.csv")
 df
-#this will give the number of rows and columns
-df.shape
-# Count of missing values by category
-df.isna().sum()
-df.shape
-df.dtypes
-# Indexing rows with columns that only contain numbers or punctuation
-ingred_index = [index for i, index in zip(df['TranslatedIngredients'], df.index) if isinstance(i, str) and all(j.isdigit() or j in string.punctuation for j in i)]
-recipe_index = [index for i, index in zip(df['RecipeName'], df.index) if isinstance(i, str) and all(j.isdigit() or j in string.punctuation for j in i)]
-instru_index = [index for i, index in zip(df['Instructions'], df.index) if isinstance(i, str) and all(j.isdigit() or j in string.punctuation for j in i)]
+# #this will give the number of rows and columns
+# df.shape
+# # Count of missing values by category
+# df.isna().sum()
+# df.shape
+# df.dtypes
+# # Indexing rows with columns that only contain numbers or punctuation
+# ingred_index = [index for i, index in zip(df['TranslatedIngredients'], df.index) if isinstance(i, str) and all(j.isdigit() or j in string.punctuation for j in i)]
+# recipe_index = [index for i, index in zip(df['RecipeName'], df.index) if isinstance(i, str) and all(j.isdigit() or j in string.punctuation for j in i)]
+# instru_index = [index for i, index in zip(df['Instructions'], df.index) if isinstance(i, str) and all(j.isdigit() or j in string.punctuation for j in i)]
 
-# Checking number of rows in each category that are only punc/nums
-index_list = [ingred_index, recipe_index, instru_index]
-[len(x) for x in index_list]
+# # Checking number of rows in each category that are only punc/nums
+# index_list = [ingred_index, recipe_index, instru_index]
+# [len(x) for x in index_list]
 
-# Recipe instructions with less than 20 characters are not good recipes
-empty_instr_ind = [index for i, index in zip(df['Instructions'], df.index) if len(i) < 20]
-recipes = df.drop(index = empty_instr_ind).reset_index(drop=True)
-df.shape
-df.isna().sum()
+# # Recipe instructions with less than 20 characters are not good recipes
+# empty_instr_ind = [index for i, index in zip(df['Instructions'], df.index) if len(i) < 20]
+# recipes = df.drop(index = empty_instr_ind).reset_index(drop=True)
+# df.shape
+# df.isna().sum()
 
-# Checking for low ingredient recipes.
-#low_ingr_ind = [index for i, index in zip(df['ingredients'], df.index) if len(i) < 20]
-low_ingr_index = [index for index, i in df['TranslatedIngredients'].items() if isinstance(i, list) and pd.isna(i[0])]
-print(len(low_ingr_index))
-print(df.loc[low_ingr_index, 'TranslatedIngredients'])
+# # Checking for low ingredient recipes.
+# #low_ingr_ind = [index for i, index in zip(df['ingredients'], df.index) if len(i) < 20]
+# low_ingr_index = [index for index, i in df['TranslatedIngredients'].items() if isinstance(i, list) and pd.isna(i[0])]
+# print(len(low_ingr_index))
+# print(df.loc[low_ingr_index, 'TranslatedIngredients'])
 
-# Searching for pseudo empty lists
-indices_with_nan = [index for index, ingredients in df['TranslatedIngredients'].items() if isinstance(ingredients, list) and any(np.isnan(x) for x in ingredients)]
-indices_with_nan
+# # Searching for pseudo empty lists
+# indices_with_nan = [index for index, ingredients in df['TranslatedIngredients'].items() if isinstance(ingredients, list) and any(np.isnan(x) for x in ingredients)]
+# indices_with_nan
 
 #Cleaning to Prepare for Tokenizing
 # Removing ADVERTISEMENT text from ingredients list
@@ -112,18 +95,44 @@ def recommend_recipes(user_ingredients, user_dietary_preference, user_cuisine_ty
         top_indices = top_indices[sorted_indices]
 
     # Get recommended recipes
+    
     recommended_recipes = df.iloc[top_indices]
     return recommended_recipes
 
 # Example user input
-#user_ingredients = "rice,black gram,yeast"
-#user_dietary_preference = "Vegetarian"
-#user_cuisine_type = ""
-sort_by = 'default' #  or 'preparation_time' 'TotalTimeInMins'
+# user_ingredients = "rice,black gram,yeast"
+# user_dietary_preference = "Vegetarian"
+# user_cuisine_type = ""
+# sort_by = 'default' # or 'preparation_time' 'TotalTimeInMins'
 
 # Recommend recipes based on user input, dietary preferences, cuisine type, and sorting criteria
-recommended_recipes = recommend_recipes(user_ingredients, user_dietary_preference, user_cuisine_type, sort_by=sort_by)
+# recommended_recipes = recommend_recipes(user_ingredients, user_dietary_preference, user_cuisine_type, sort_by=sort_by)
 
 # Display recommended recipes
-print("Recommended recipes sorted by", sort_by)
-print(recommended_recipes)
+# print("Recommended recipes sorted by", sort_by)
+# print(recommended_recipes)
+
+@app.route("/")
+def home():
+    # Display the form (using render_template)
+    return render_template("recipeSearchPage.html")
+
+@app.route("/recommend", methods=["GET", "POST"])
+def recommend():
+    # Process form data
+    user_ingredients = request.form["ingredients"]
+    user_dietary_preference = request.form.get("diet","")
+    user_cuisine_type = request.form.get("cuisine","")
+    sort_by = 'default' #  or 'preparation_time' 'TotalTimeInMins'
+    recommended_recipes = recommend_recipes(user_ingredients, user_dietary_preference, user_cuisine_type, sort_by=sort_by)
+
+    print("Recommended recipes sorted by", sort_by)
+    print(recommended_recipes)
+    user_ingredients = ""
+    user_dietary_preference = ""
+    user_cuisine_type = ""
+    return render_template("listpage.html", recommended_recipes=recommended_recipes.to_json(orient='records'))
+    # Display recommended recipes
+
+if __name__ == "__main__":
+   app.run(debug = True)
