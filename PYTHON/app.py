@@ -19,6 +19,7 @@ user_cuisine_type = ""
 '''
 app = Flask(__name__)
 
+
 df=pd.read_csv("IndianFoodDatasetCSV.csv")
 df
 # #this will give the number of rows and columns
@@ -117,7 +118,7 @@ def home():
     # Display the form (using render_template)
     return render_template("recipeSearchPage.html")
 
-@app.route("/recommend", methods=["GET", "POST"])
+@app.route("/recommend", methods=["POST"])
 def recommend():
     # Process form data
     user_ingredients = request.form["ingredients"]
@@ -131,8 +132,26 @@ def recommend():
     user_ingredients = ""
     user_dietary_preference = ""
     user_cuisine_type = ""
-    return render_template("listpage.html", recommended_recipes=recommended_recipes.to_json(orient='records'))
+    return render_template("listpage.html", recommended_recipes=recommended_recipes.to_dict(orient='records'))
     # Display recommended recipes
+
+@app.route("/recipe/<int:recipe_id>")
+def recipe_details(recipe_id):
+    # Call a function to retrieve the recipe details based on recipe_id
+    recipe = get_recipe_details(recipe_id)  # Define this function to fetch recipe details
+    if recipe is None:
+        # Handle case where recipe is not found
+        return render_template("error.html", message="Recipe not found"), 404
+    else:
+        # Render the recipe details template with the retrieved recipe data
+        return render_template("recipe_details.html", recipe=recipe)
+    
+def get_recipe_details(recipe_id):
+    # Assuming `df` is your Pandas DataFrame containing recipe data
+    recipe = df[df['Srno'] == recipe_id].iloc[0]  # Replace 'Srno' with your unique identifier
+    return recipe
+
+
 
 if __name__ == "__main__":
    app.run(debug = True)
