@@ -1,0 +1,29 @@
+<!-- recipe_details.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ recipe.RecipeName }} Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/recipe_details.css') }}">
+</head>
+<body>
+    <div class="main-container">
+        <div class="container">
+    <h1>{{ recipe.RecipeName }}</h1>
+    <p><strong>Cuisine:</strong> {{ recipe.Cuisine }}</p>
+    <p><strong>Diet:</strong> {{ recipe.Diet }}</p>
+    <p><strong>Preparation Time:</strong> {{ recipe.PrepTimeInMins }} minutes</p>
+    <h2>Instructions</h2>
+    <p>{{ recipe.TranslatedInstructions }}</p>
+    <a href="#" onclick="goBack()" class="back-button">Back to Recipes</a>
+   </div>
+</div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
