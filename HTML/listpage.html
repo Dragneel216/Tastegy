@@ -4,132 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Recommendations</title>
-    <link rel="stylesheet" href="listpage.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/listpage.css') }}">
 </head>
 <body>
     <h1>Recipe Recommendations</h1>
-    <div class="container">
-        <div class="input-section">
-            <h2>Input Ingredients, Diet, and Cuisine</h2>
-            <form id="inputForm" class="input-form" action="/recommend" method="POST">
-                <label for="ingredients">Ingredients:</label>
-                <input type="text" id="ingredients" name="ingredients" placeholder="Enter ingredients...">
-                <label for="diet">Diet:</label>
-                <select id="diet" name="diet">
-                    <option value="default">None</option>
-                    <option value="Vegetarian">Vegetarian</option>
-                    <option value="Non Vegetarian">Non-Vegetarian</option>
-                    <option value="Vegan">Vegan</option>
-                    <!-- Add more diet options as needed -->
-                </select>
-                <label for="cuisine">Cuisine:</label><select id="cuisine" name="cuisine">
-                    <option value="" disabled selected>Enter the cuisine</option>
-                    <option value="SouthIndian">South Indian</option>
-                    <option value="NorthIndian">North Indian</option>
-                    <option value="Andhra">Andhra</option>
-                    <option value="Assamese">Assamese</option>
-                    <option value="Awadhi">Awadhi</option>
-                    <option value="Bengali">Bengali</option>
-                    <option value="Bihari">Bihari</option>
-                    <option value="Chettinad">Chettinad</option>
-                    <option value="Coorg">Coorg</option>
-                    <option value="Fusion">Fusion</option>
-                    <option value="Goan">Goan</option>
-                    <option value="Gujarati">Gujarati</option>
-                    <option value="Haryana">Haryana</option>
-                    <option value="Himachal">Himachal</option>
-                    <option value="Hyderabadi">Hyderabadi</option>
-                    <option value="Indian">Indian</option>
-                    <option value="IndoChinese">Indo Chinese</option>
-                    <option value="Jharkhand">Jharkhand</option>
-                    <option value="Kannada">Kannada</option>
-                    <option value="Kashmiri">Kashmiri</option>
-                    <option value="Kerala">Kerala</option>
-                    <option value="Kongunadu">Kongunadu</option>
-                    <option value="Konkan">Konkan</option>
-                    <option value="Lucknowi">Lucknowi</option>
-                    <option value="Maharashtrian">Maharashtrian</option>
-                    <option value="Malabar">Malabar</option>
-                    <option value="Malvani">Malvani</option>
-                    <option value="Mangalorean">Mangalorean</option>
-                    <option value="Mughlai">Mughlai</option>
-                    <option value="Nagaland">Nagaland</option>
-                    <option value="NorthEast">North East Indian</option>
-                    <option value="Oriya">Oriya</option>
-                    <option value="Parsi">Parsi</option>
-                    <option value="Punjabi">Punjabi</option>
-                    <option value="Rajasthani">Rajasthani</option>
-                    <option value="Sindhi">Sindhi</option>
-                    <option value="TamilNadu">Tamil Nadu</option>
-                    <option value="Udupi">Udupi</option>
-                    <option value="UttarPradesh">Uttar Pradesh</option>
-                    <option value="Uttarakhand">Uttarakhand</option>
-                </select>
-                <button type="submit">Search Recipes</button>
-            </form>
-        </div>
-        <div class="recipe-section">
-            <h2>Recipes</h2>
-            <div class="recipe-container" id="recipeContainer">
-                <!-- Recipes will be displayed here -->
-            </div>
+    
+    <div class="recipe-section">
+        <h2>Recipes</h2>
+        <div class="recipe-container" id="recipeContainer">
+            {% if recommended_recipes %}
+                {% for recipe in recommended_recipes %}
+                <div class="recipe-card">
+                    <a href="/recipe/{{recipe.Srno}}">
+                        <div class="recipe-name">{{ recipe.TranslatedRecipeName }}</div>
+                    </a>
+                    <!-- Other basic details can be displayed here -->
+                </div>
+                
+                {% endfor %}
+            {% else %}
+                <p>No recipes found.</p>
+            {% endif %}
         </div>
     </div>
-
+    <a href="#" onclick="goBack()" class="back-button">Back to Search page</a>
     <script>
-        // Sample recipe data
-        var recipes = [
-            {
-                name: "Spaghetti Carbonara",
-                image: "https://www.example.com/spaghetti_carbonara.jpg",
-                // Add more recipe data as needed
-            },
-            {
-                name: "Chicken Parmesan",
-                image: "https://www.example.com/chicken_parmesan.jpg",
-            },
-            // Add more recipes as needed
-        ];
-
-        // Function to display recipes
-        function displayRecipes(recipes) {
-            var container = document.getElementById("recipeContainer");
-            container.innerHTML = ""; // Clear previous content
-
-            recipes.forEach(function(recipe) {
-                var card = document.createElement("div");
-                card.classList.add("recipe-card");
-
-                var img = document.createElement("img");
-                img.src = recipe.image;
-                img.alt = recipe.name;
-
-                var name = document.createElement("div");
-                name.classList.add("recipe-name");
-                name.textContent = recipe.name;
-
-                card.appendChild(img);
-                card.appendChild(name);
-                container.appendChild(card);
-            });
-        }
-
-        // Function to submit form
-        // function submitForm() {
-        //     var ingredients = document.getElementById("ingredients").value;
-        //     var diet = document.getElementById("diet").value;
-        //     var cuisine = document.getElementById("cuisine").value;
-
-        //     // You can process the form data here, e.g., filter recipes based on input
-
-        //     // For demonstration purposes, let's just display all recipes
-        //     displayRecipes(recipes);
-        // }
-
-        // Display recipes when the page loads
-        window.onload = function() {
-            displayRecipes(recipes);
-        };
+        function goBack() {
+    window.history.back();
+         }    
     </script>
 </body>
 </html>
