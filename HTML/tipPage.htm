@@ -3,40 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooking Tips</title>
-    <link rel="stylesheet" type="text/css" href="tipPage.css">
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tippage.css') }}"> Link to your CSS stylesheet -->
+    <title>Tastegy Tips Corner</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tipPage.css') }}">
 </head>
 <body>
     <header>
-        <h1>Cooking Tips</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
+        <h1>Welcome to Tastegy Tips Corner</h1>
     </header>
     <main>
-        <section id="tip-section">
-            <h2>Featured Tips</h2>
-            <div id="tips-container">
-                <!-- Tips fetched from API will be dynamically added here -->
-                <!-- Example structure:
-                <div class="tip">
-                    <h3>Tip Title</h3>
-                    <p>Tip Description</p>
-                </div>
-                -->
-            </div>
-        </section>
+        <div class="options">
+            <button onclick="showTips('kitchen')">Kitchen Tips</button>
+            <button onclick="showTips('Cooking')">Cooking Tips</button>
+            <button onclick="showTips('Cutting')">Cutting Tips</button>
+        </div>
     </main>
-    <footer>
-        <p>&copy; 2024 Cooking Tips. All rights reserved.</p>
-    </footer>
 
-    <script src="tippage.js"></script> <!-- Link to your JavaScript file for API integration -->
-    <!-- <script src="{{ url_for('static', filename='js/tippage.js') }}"></script> -->
+    <script src="tippage.js"></script>
 </body>
 </html>
