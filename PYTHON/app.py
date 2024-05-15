@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, g
+import requests
 import pandas as pd
 import numpy as np
 import re
@@ -8,51 +9,18 @@ import os
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.metrics.pairwise import cosine_similarity
+from bs4 import BeautifulSoup
 import multiprocessing as mp
 from sklearn.decomposition import NMF
 from sklearn.decomposition import LatentDirichletAllocation as LDA
 
-'''
-user_ingredients = ""
-user_dietary_preference = ""
-user_cuisine_type = ""
-'''
-app = Flask(__name__)
-
+app = Flask(__name__, static_folder="static")
 
 df=pd.read_csv("IndianFoodDatasetCSV.csv")
 df
-# #this will give the number of rows and columns
-# df.shape
-# # Count of missing values by category
-# df.isna().sum()
-# df.shape
-# df.dtypes
-# # Indexing rows with columns that only contain numbers or punctuation
-# ingred_index = [index for i, index in zip(df['TranslatedIngredients'], df.index) if isinstance(i, str) and all(j.isdigit() or j in string.punctuation for j in i)]
-# recipe_index = [index for i, index in zip(df['RecipeName'], df.index) if isinstance(i, str) and all(j.isdigit() or j in string.punctuation for j in i)]
-# instru_index = [index for i, index in zip(df['Instructions'], df.index) if isinstance(i, str) and all(j.isdigit() or j in string.punctuation for j in i)]
 
-# # Checking number of rows in each category that are only punc/nums
-# index_list = [ingred_index, recipe_index, instru_index]
-# [len(x) for x in index_list]
-
-# # Recipe instructions with less than 20 characters are not good recipes
-# empty_instr_ind = [index for i, index in zip(df['Instructions'], df.index) if len(i) < 20]
-# recipes = df.drop(index = empty_instr_ind).reset_index(drop=True)
-# df.shape
-# df.isna().sum()
-
-# # Checking for low ingredient recipes.
-# #low_ingr_ind = [index for i, index in zip(df['ingredients'], df.index) if len(i) < 20]
-# low_ingr_index = [index for index, i in df['TranslatedIngredients'].items() if isinstance(i, list) and pd.isna(i[0])]
-# print(len(low_ingr_index))
-# print(df.loc[low_ingr_index, 'TranslatedIngredients'])
-
-# # Searching for pseudo empty lists
-# indices_with_nan = [index for index, ingredients in df['TranslatedIngredients'].items() if isinstance(ingredients, list) and any(np.isnan(x) for x in ingredients)]
-# indices_with_nan
-
+def set_global_variable(recipe):
+    g.recommended_recipes = recipe
 #Cleaning to Prepare for Tokenizing
 # Removing ADVERTISEMENT text from ingredients list
 ingredients = []
@@ -94,31 +62,40 @@ def recommend_recipes(user_ingredients, user_dietary_preference, user_cuisine_ty
     if sort_by == 'TotalTimeInMins':
         sorted_indices = df.iloc[top_indices]['TotalTimeInMins'].argsort()
         top_indices = top_indices[sorted_indices]
+    elif sort_by == 'TotalTimeInMins':
+        sorted_indices = df.iloc[top_indices]['TotalTimeInMins'].argsort()
+        top_indices = top_indices[sorted_indices]
 
     # Get recommended recipes
-    
     recommended_recipes = df.iloc[top_indices]
+    g.recommended_recipes = recommended_recipes
     return recommended_recipes
 
-# Example user input
-# user_ingredients = "rice,black gram,yeast"
-# user_dietary_preference = "Vegetarian"
-# user_cuisine_type = ""
-# sort_by = 'default' # or 'preparation_time' 'TotalTimeInMins'
-
-# Recommend recipes based on user input, dietary preferences, cuisine type, and sorting criteria
-# recommended_recipes = recommend_recipes(user_ingredients, user_dietary_preference, user_cuisine_type, sort_by=sort_by)
-
-# Display recommended recipes
-# print("Recommended recipes sorted by", sort_by)
-# print(recommended_recipes)
+# @app.route("/")
+# def home():
+#     # Display the home (using render_template)
+#     return render_template("homePage.html")
 
 @app.route("/")
-def home():
+def findRecipes():
     # Display the form (using render_template)
     return render_template("recipeSearchPage.html")
 
-@app.route("/recommend", methods=["POST"])
+@app.route("/login")
+def login():
+    # Display the login page (using render_template)
+    return render_template("loginPage.html")
+
+# @app.route("/tips")
+# def tip():
+#     try:
+#         response = requests.get(f'{ENDPOINT}?apiKey={API_KEY}')
+#         tips = response.json()
+#         return jsonify(tips)
+#     except Exception as e:
+#         return jsonify({'error': str(e)})
+
+@app.route("/recommend", methods=["GET", "POST"])
 def recommend():
     # Process form data
     user_ingredients = request.form["ingredients"]
@@ -127,31 +104,54 @@ def recommend():
     sort_by = 'default' #  or 'preparation_time' 'TotalTimeInMins'
     recommended_recipes = recommend_recipes(user_ingredients, user_dietary_preference, user_cuisine_type, sort_by=sort_by)
 
+    for index, row in recommended_recipes.iterrows():
+            recipe_url = row['URL']
+            image_urls = scrape_images(recipe_url)
+            recommended_recipes.at[index, 'ImageURLs'] = image_urls
+
     print("Recommended recipes sorted by", sort_by)
     print(recommended_recipes)
     user_ingredients = ""
     user_dietary_preference = ""
     user_cuisine_type = ""
-    return render_template("listpage.html", recommended_recipes=recommended_recipes.to_dict(orient='records'))
+    return render_template("listPage.html", recommended_recipes=recommended_recipes.to_dict(orient='records'))
     # Display recommended recipes
 
 @app.route("/recipe/<int:recipe_id>")
 def recipe_details(recipe_id):
     # Call a function to retrieve the recipe details based on recipe_id
     recipe = get_recipe_details(recipe_id)  # Define this function to fetch recipe details
+    image_url = scrape_images(recipe.URL)
+    recipe['ImageURLs'] = image_url[0]
+    print(recipe)
     if recipe is None:
         # Handle case where recipe is not found
         return render_template("error.html", message="Recipe not found"), 404
     else:
         # Render the recipe details template with the retrieved recipe data
-        return render_template("recipe_details.html", recipe=recipe)
+        return render_template("recipeDetails.html", recipe=recipe)
     
 def get_recipe_details(recipe_id):
     # Assuming `df` is your Pandas DataFrame containing recipe data
     recipe = df[df['Srno'] == recipe_id].iloc[0]  # Replace 'Srno' with your unique identifier
     return recipe
 
-
+def scrape_images(url):
+    specific_image_urls = []
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    class_name = 'img-fluid img-thumbnail'  # Change this to match the class name of the images you want to scrape
+    # Find all image elements with the specified class name
+    img_tags = soup.find_all('img', class_=class_name)
+    
+    # Extract image URLs
+    for img_tag in img_tags:
+        img_url = img_tag.get('src')
+        if img_url:
+            img_url = "https://www.archanaskitchen.com/"+img_url
+            specific_image_urls.append(img_url)
+    
+    return specific_image_urls
 
 if __name__ == "__main__":
    app.run(debug = True)
