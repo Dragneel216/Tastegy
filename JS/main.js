@@ -17,6 +17,10 @@ var regFormDB = firebase.database().ref('Form');
 
 document.getElementById("regForm").addEventListener("submit",submitForm);
 
+const getElementVal = (id) =>{
+  return document.getElementById(id).value;
+}
+
 async function submitForm(e){
     e.preventDefault();
 
@@ -65,6 +69,7 @@ async function submitForm(e){
 }
 
 //login=============================================================================================================================
+
 document.getElementById("loginForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent default form submission
 
@@ -80,15 +85,24 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
       .then(function(results) {
         var emailSnapshot = results[0];
         var nameSnapshot = results[1];
+        var userFound= false;
         if (emailSnapshot.exists() || nameSnapshot.exists()) {
           emailSnapshot.forEach(function(childSnapshot) {
             var userData = childSnapshot.val();
             // Compare the password
             if (userData.pwd === password) {
+              var userFound= true;
               // Password matches, user is authenticated
               // Redirect the user to another website
+              document.getElementById("loginForm").reset();
               window.location.href = "recipeSearchPage.html"; // Change the URL to your desired website
-            } else {
+
+              //SET LOGIN STATUS
+              localStorage.setItem('uid', username);
+              localStorage.setItem('mail', emailSnapshot);
+
+            } 
+            else {
               // Password doesn't match
               alert("Incorrect password!");
             }
@@ -97,10 +111,15 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
             var userData = childSnapshot.val();
             // Compare the password
             if (userData.pwd === password) {
+              var userFound= true;
               // Password matches, user is authenticated
               // Redirect the user to another website
-                document.getElementById("loginForm").reset();
-                window.location.href = "recipeSearchPage.html"; // Change the URL to your desired website
+              document.getElementById("loginForm").reset();
+              window.location.href = "TEST.html"; // Change the URL to your desired website
+
+              //SET LOGIN STATUS
+              localStorage.setItem('uid', userData.name);
+              localStorage.setItem('mail', userData.mail);
             } else {
               // Password doesn't match
               alert("Incorrect password!");
@@ -115,6 +134,27 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         console.error("Error querying database: ", error);
       });
 });
+function handleLoginSuccess(userData) {
+  // Password matches, user is authenticated
+  // Redirect the user to another website
+  document.getElementById("loginForm").reset();
+  window.location.href = "recipeSearchPage.html"; // Change the URL to your desired website
+
+  // SET LOGIN STATUS
+  localStorage.setItem('uid', userData.name);
+  localStorage.setItem('mail', userData.mail);
+}
+
+
+const saveMsgs = (name, mail, pwd)=>{
+    var newRegForm = regFormDB.push();
+
+    newRegForm.set({
+        name: name,
+        mail: mail,
+        pwd: pwd
+    });
+}
 //==========================================================================================================================
 /*var database = firebase.database();
     
@@ -142,19 +182,6 @@ function checkForm(e){
 */
 
 
-const getElementVal = (id) =>{
-  return document.getElementById(id).value;
-}
-
-const saveMsgs = (name, mail, pwd)=>{
-    var newRegForm = regFormDB.push();
-
-    newRegForm.set({
-        name: name,
-        mail: mail,
-        pwd: pwd
-    });
-}
 
 
 
