@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tastegy Tips Corner</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tipPage.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Tastegy Tips Corner</h1>
+    </header>
+    <main>
+        <div class="options">
+            <button onclick="showTips('Kitchen')">Kitchen Tips</button>
+            <button onclick="showTips('Cooking')">Cooking Tips</button>
+            <button onclick="showTips('Cutting')">Cutting Tips</button>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/tippage.js') }}"></script>
+</body>
+</html>
