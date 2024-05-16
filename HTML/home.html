@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
 </head>
 <body>
-    <div class="container">
+    <div class="navigation">
         <img class="logo" src="{{ url_for('static', filename='images/TASTEGY (3).png') }}">
         <nav class="dashboard">
             <a class="tabs" href="/tips/">Tips</a> |
@@ -18,9 +18,12 @@
         <div class="account">
             <img class="accIcon" src="{{ url_for('static', filename='images/user.png') }}">
             <div class="accTitle">
-                <input class="accDetail" id="headUid" disabled>
-                <input class="accDetail" id="headMail" disabled>
-                <button id="but" type="button">LOG OUT</button>
+                <div class="accSub">
+                    <input class="accDetail" id="headUid" disabled>
+                    <input class="accDetail" id="headMail" disabled>
+                    <button class="but"><img class="button" id="logout" src="{{ url_for('static', filename='images/logout.png') }}"></button>
+                </div>
+                <button class="but" id="login">SIGN IN</button>
             </div>
         </div>
     </div>
@@ -29,7 +32,44 @@
     </div>
     <div class="central sub">
         Personalized Recipes for Every Taste!<br><br>
-        <button class="button buttonk">Get Started</button> 
+        <button class="button buttonk" id="search">Get Started</button> 
     </div>
 </body>
+<script>
+    var username=localStorage.getItem('uid');
+    var emailid=localStorage.getItem('mail');
+    console.log(username,emailid);
+    if(username && emailid){
+        document.querySelector(".accTitle").style.height='120px';
+        document.querySelector(".accSub").style.display="block";
+        document.getElementById("login").style.display="none";
+        document.getElementById("headUid").value=username;
+        document.getElementById("headMail").value=emailid;
+    }
+    else{
+        document.querySelector(".accTitle").style.height='80px';
+        document.querySelector(".accSub").style.display="none";
+        document.getElementById("login").style.display="block";
+    }
+
+    document.querySelector('.logo').addEventListener('click', function(){
+            window.location.href="/";
+    })
+    document.getElementById("logout").addEventListener("click", function(){
+        localStorage.removeItem('name');
+        localStorage.removeItem('mail');
+        window.location.href="/";
+    })
+    document.getElementById("login").addEventListener("click", function(){
+        window.location.href="/login";
+    })
+    document.getElementById('search').addEventListener('click', function(){
+        if(username && emailid){
+            window.location.href="/recipeSearch";
+        }
+        else{
+            window.location.href="/login";
+        }
+    })
+</script>
 </html>
