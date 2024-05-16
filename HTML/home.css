@@ -1,0 +1,134 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.5) url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg'); 
+    background-size: cover;
+    background-attachment: fixed;
+
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); 
+}
+.container {
+    position: relative; 
+    font-family: 'Baskerville Old Face', serif;
+    z-index: 100;
+    max-width: 1800px;
+    margin: 0px auto;
+    padding: 30px;
+    height:30px;
+    font-size: 30px;
+    text-align: center;
+    background-color: #fffaf0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+}
+.logo{
+    margin-top: -40px;
+    height: 120px;
+    margin-right: auto;
+    z-index: 1;
+}
+.tabs {
+    text-decoration: none; /* Remove the underline */
+    color: inherit; /* Set color to inherit from parent element */
+    font-weight: inherit; /* Set font weight to inherit from parent element */
+    font-size: inherit; /* Set font size to inherit from parent element */
+    font-family: inherit; /* Set font family to inherit from parent element */
+    cursor: text; /* Change cursor to text (like normal text) */
+}
+.dashboard{
+    margin: 0 auto;
+}
+.tabs{
+    margin:0 40px 0;
+}
+.account {
+    margin-left: auto;
+    margin-top:-10px;
+    height: 50px;
+    position: relative;
+}
+.accIcon{
+    height:50px;
+    float: right;
+}
+.accTitle{
+    position: relative;
+    background-color: #fffaf0;
+    margin: 80px -20px;
+    height: 120px;
+    width: 200px;
+    border-radius: 10px;
+    backdrop-filter: none;
+}
+.accTitle::before {
+    content: '';
+    position: absolute;
+    top: -10px; /* Adjust this value to align with the element above */
+    left: 80%; /* Align with the center of the .accTitle div */
+    transform: translateX(-60%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fffaf0; /* Match the background color of .accTitle */
+}
+.accDetail:hover{
+
+}
+
+.central{
+    position: relative;
+    z-index: 1; 
+    max-width: 1800px;
+    padding: 30px;
+    text-align: center;
+    background-color: transparent;
+}
+
+.head{
+    font-family: 'Baskerville Old Face', serif;
+    margin: 100px auto;
+    margin-top: -50px;
+    color: #00291c;
+    height:700px;
+    padding-top: 150px;
+    font-size: 120px;
+    text-shadow: -2px 1px 3px white,
+                -2px 2px 3px white;
+    backdrop-filter: blur(3px);
+
+}
+.sub{
+    font-family: 'Century Gothic', sans-serif;
+    margin: -570px  auto;
+    color: #070707;
+    font-size: 40px;
+    height:30px;
+    font-weight: 300 ;
+    text-shadow: -2px 2px 2px white;
+    font-stretch: wider;
+
+}
+
+.buttonk{
+    padding: 20px 40px;
+    margin-bottom: 5%;
+    width: 20%;
+    background-color: #00291c;
+    color: #fff;
+    font-family: 'Century Gothic', sans-serif;
+    border-radius: 100px;
+    border-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 25px;
+}
+button:hover {
+    background-color: #45a049;
+}

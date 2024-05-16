@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Recommendation</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+    <div class="container">
+        <img class="logo" src="{{ url_for('static', filename='images/TASTEGY (3).png') }}">
+        <nav class="dashboard">
+            <a class="tabs" href="/tips/">Tips</a> |
+            <a class="tabs" href="/us/">About Us</a> |
+            <a class="tabs" href="/contact/">Contact Us</a> 
+        </nav>  
+        <div class="account">
+            <img class="accIcon" src="{{ url_for('static', filename='images/user.png') }}">
+            <div class="accTitle">
+                <input class="accDetail" id="headUid" disabled>
+                <input class="accDetail" id="headMail" disabled>
+                <button id="but" type="button">LOG OUT</button>
+            </div>
+        </div>
+    </div>
+    <div class="central head">
+        Unlock Your Culinary<br>Adventure      
+    </div>
+    <div class="central sub">
+        Personalized Recipes for Every Taste!<br><br>
+        <button class="button buttonk">Get Started</button> 
+    </div>
+</body>
+</html>
