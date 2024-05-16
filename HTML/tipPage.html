@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tipPage.css') }}">
 </head>
 <body>
+
+<div class="container">
     <header>
         <h1>Welcome to Tastegy Tips Corner</h1>
     </header>
@@ -16,8 +18,13 @@
             <button onclick="showTips('Cooking')">Cooking Tips</button>
             <button onclick="showTips('Cutting')">Cutting Tips</button>
         </div>
-    </main>
 
-    <script src="{{ url_for('static', filename='js/tippage.js') }}"></script>
+        <div class="tip-container" id="tipContainer">
+            <!-- Tips will be dynamically displayed here -->
+        </div>
+    </main>
+</div>
+
+<script src="{{ url_for('static', filename='js/tippage.js') }}"></script>
 </body>
 </html>
