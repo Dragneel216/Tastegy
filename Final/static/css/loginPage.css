@@ -1,0 +1,214 @@
+html{
+    background-image: url('/static/images/loginbk1.jpg'); 
+    height:100%; 
+    background-size: cover;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.center {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+}
+.no-scroll{
+    overflow: hidden !important;
+} 
+.wave {
+    width: 5px;
+    height: 100px;
+    background: linear-gradient(45deg, cyan, #fff);
+    margin: 10px;
+    animation: wave 1s linear infinite;
+    border-radius: 20px;
+}
+.wave:nth-child(2) {
+    animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+    animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+    animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+    animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+    animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+    animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+    animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+    animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+    animation-delay: 0.9s;
+}
+
+@keyframes wave {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+.mainmain{
+    position: relative;
+}
+.main{
+    background-color: white;
+    max-width: 600px;
+    margin: 85px auto;
+    border-radius: 5px;
+    height: 540px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgb(0 0 0/0.5);
+}
+.header{
+    background-image: url("/static/images/foodoodle.png");
+    background-size:cover;
+    height: 160px;
+    border-radius: 10px 10px 0px 0px; 
+    filter: blur(1px);
+}
+.logo{
+    margin: -20px;
+    margin-top: -180px;
+    height: 235px;
+    width: 235px;
+    margin-left: 12%;
+    position: absolute;
+    /*backdrop-filter: blur(0.5px);*/
+}
+#old{
+    display: block;
+}
+#new{
+    display: none;
+    height: 620px;
+}
+.column{
+    padding-left:10px;
+    padding-right:10px;
+    height: 550px;
+    width: 60%
+}
+.column.form{
+    margin: 10px auto;
+    text-align: center;
+}
+#oldxtra{
+    border-radius: 0px 10px 10px 0px; 
+}
+#newxtra{
+    border-radius: 10px 0px 0px 10px; 
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+input {
+    width: calc(100% - 16px);
+    padding: 12px;
+    margin: 8px auto;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+}
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -37px;
+    position: relative;
+    z-index: 2;
+  }
+
+button {
+    padding: 15px 100px;
+    margin: 5px auto;
+    background-color: #2c2c2c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+button:hover {
+    background-color: #393939;
+}
+.switch:hover {
+    font-size: large;
+    width:30%
+}
+img.icon:hover,img.icon:focus{
+    width: 15%;
+    height: 15%;
+}
+.icon{
+    width: 50px; 
+    height:50px;
+    display:inline;
+}
+#gmail{
+    margin-right: 10%;
+}
+#fb{
+    display: inline;
+} 
+body{
+    background-size: 100% 200% ; 
+}
+h2{
+    font-size:xx-large; 
+    text-align: center; 
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 10px;
+}
+#strength{
+    display: none;
+    float:left;
+    font-style: italic;
+}
+#weak{
+    color: red;
+}
+#mid{
+    color: orange;
+    /*visibility: hidden;*/
+}
+#stronk{
+    color: green;
+    /*visibility: hidden;*/
+}
+#passMatch{
+    color: red;
+    display: none;
+    font-style: italic;
+}
+.switch{
+    width:80px;
+    padding: 0;
+    color: #2c2c2c;
+    background-color: transparent;
+    border: transparent;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+}

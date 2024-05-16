@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Recommendations</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/listpage.css') }}">
+</head>
+
+<body>
+    <div class="navigation">
+        <img class="logo" src="{{ url_for('static', filename='images/TASTEGY (3).png') }}">
+        <nav class="dashboard">
+            <a class="tabs" href="/tips">Tips</a> |
+            <a class="tabs" href="/about">About Us</a> |
+            <a class="tabs" href="/contact">Contact Us</a> 
+        </nav>  
+        <div class="account">
+            <img class="accIcon" src="{{ url_for('static', filename='images/user.png') }}">
+            <div class="accTitle">
+                <div class="accSub">
+                    <input class="accDetail" id="headUid" disabled>
+                    <input class="accDetail" id="headMail" disabled>
+                    <button class="but"><img class="button" id="logout" src="{{ url_for('static', filename='images/logout.png') }}"></button>
+                </div>
+                <button class="but" id="login">SIGN IN</button>
+            </div>
+        </div>
+    </div>
+    <div class="recipe-section">
+        <div class="heading">
+            <h1>Recipe Recommendations</h1>
+            <!-- Sorting Options -->
+            <form id="searchForm" method="POST">
+                <div class="sorting-section">
+                    <label for="sort">Sort by:</label>
+                    <select id="sort" name="sort" onchange="sortRecipes()">
+                        <option value="default">Default</option>
+                        <option value="TotalTimeInMinsAsc">Cooking Time (Low to High)</option>
+                        <option value="TotalTimeInMinsDesc">Cooking Time (High to Low)</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="recipe-container" id="recipeContainer">
+            {% if recommended_recipes %}
+            {% for recipe in recommended_recipes %}
+            <div class="recipe-card">
+                <a href="/recipe/{{recipe.Srno}}">
+                    {% if recipe.ImageURLs %}
+                            <div class="recipe-images">
+                                {% for img_url in recipe.ImageURLs %}
+                                    <img src="{{ img_url }}" class="recipe-images-img" alt="Recipe Image">
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    <div class="recipe-name">{{ recipe.TranslatedRecipeName }}</div>
+                </a>
+                <!-- Other basic details can be displayed here -->
+            </div>
+
+            {% endfor %}
+            {% else %}
+            <p>No recipes found.</p>
+            {% endif %}
+        </div>
+        <a href="#" onclick="goBack()" class="back-button">Back to Search page</a>
+    </div>
+    <script src ="{{ url_for('static', filename='js/listpage.js') }}"></script>
+    </body>
+    <script>
+        var username=localStorage.getItem('uid');
+        var emailid=localStorage.getItem('mail');
+        console.log(username,emailid);
+        if(username && emailid){
+            document.querySelector(".accTitle").style.height='120px';
+            document.querySelector(".accSub").style.display="block";
+            document.getElementById("login").style.display="none";
+            document.getElementById("headUid").value=username;
+            document.getElementById("headMail").value=emailid;
+        }
+        else{
+            document.querySelector(".accTitle").style.height='80px';
+            document.querySelector(".accSub").style.display="none";
+            document.getElementById("login").style.display="block";
+        }
+    
+        document.querySelector('.logo').addEventListener('click', function(){
+                window.location.href="/";
+        })
+        document.getElementById("logout").addEventListener("click", function(){
+            localStorage.removeItem('name');
+            localStorage.removeItem('mail');
+            window.location.href="/";
+        })
+        document.getElementById("login").addEventListener("click", function(){
+            window.location.href="/login";
+        })
+        document.getElementById('search').addEventListener('click', function(){
+            if(username && emailid){
+                window.location.href="/search";
+            }
+            else{
+                window.location.href="/login";
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<html>
+    <head>
+        <title>PROJECT</title>
+    </head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/loginPage.css') }}">
+    <body>
+        <div id="loading" class="center">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+        <div id="mainmain">
+            <div class="main" id="old">
+                <div class="header"></div>
+                <img class="logo" src="{{ url_for('static', filename='images/LOGO1.3.png') }}">
+                    <div style=" display: flex;">
+                        <div class="column form" id="logform">
+                            <h2>Login To Your Account</h2>
+                            <form methods="post" id="loginForm">
+                                <input class="login" id="username" placeholder="Username or Email" name="FName" type="text" required>
+                                <input class="login" id="password" placeholder="Password" name="FName" type="password" required><br>
+<!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_=+\-]).{6,}"-->
+                                <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                                <button class="button" name="but" type="submit">LOGIN</button>
+                <!--                <h4 style="color: #929292;">---------------Login With Others---------------</h4>
+                                <a class="otherlog" href="https://mail.google.com">
+                                    <img src="gmailbw.png" class="icon" id="gmail">
+                                </a>
+                                <a class="otherlog" href="https://www.facebook.com/">
+                                    <img src="fbbw.png" class="icon" id="fb">
+                                </a>
+                -->            </form>
+                            <form id="idk1">
+                                <input type="button" class="switch" id="newuse" value="New User?" onclick="showhide()"><br><br>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+            <div class="main" id="new">
+                <div class="header"></div>
+                <img class="logo" src="{{ url_for('static', filename='images/LOGO1.3.png') }}">
+                <div style=" display: flex;">
+                    <div class="column form" id="newform">
+                        <h2 style="margin-bottom: 5px;">Create New Account</h2>
+                        <form action="register" methods="get" id="regForm">
+                            <input class="login" placeholder="Username" id="regName" name="name" type="text" required>
+                            <input class="login" placeholder="Email" id="regMail" name="mail" type="email" required>
+                            <input class="login" placeholder="Password" id="regPwd" name="pwd" type="password" required>
+<!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_=+\-]).{6,}"-->
+                            <span toggle="#regPwd" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                            <p id="strength">Password Strength: <b id="weak">WEAK</b><b id="mid">MEDIUM</b><b id="stronk">STRONG</b></p>
+                            <input class="login" placeholder="Confirm Password" id="conPwd" name="pwd" type="password" required>
+<!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_=+\-]).{6,}"-->
+                            <span toggle="#conPwd" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                            <p id="passMatch"><b>PASSWORDS DON'T MATCH!</b></p>
+                            <button class="button" name="but" type="submit">CREATE ACCOUNT</button>
+                <!--            <h4 style="color: #929292;">-----------------Login With Others-----------------</h4>
+                            <a class="otherlog" href="https://mail.google.com">
+                                <img src="gmailbw.png" class="icon" id="gmail">
+                            </a> 
+                            <a class="otherlog" href="https://www.facebook.com/">
+                                <img src="fbbw.png" class="icon" id="fb">
+                            </a>
+                -->        </form>
+                        <form id="idk">
+                            <input type="button" class="switch" id="olduse" value="Sign In?" onclick="showhide()"><br><br>
+                        </form>
+                     </div>
+                  </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+        <script src = "{{ url_for('static', filename='js/main.js') }}"></script>
+    </body>
+</html> 

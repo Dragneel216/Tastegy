@@ -1,0 +1,182 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.5) url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg'); 
+    background-size: cover;
+    background-position: center;
+}
+.navigation {
+    position: relative; 
+    font-family: 'Baskerville Old Face', serif;
+    z-index: 100;
+    max-width: 1800px;
+    margin: 0px auto;
+    padding: 30px;
+    height:30px;
+    font-size: 30px;
+    text-align: center;
+    background-color: #fffaf0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+}
+.logo{
+    margin-top: -40px;
+    height: 120px;
+    margin-right: 20%;
+    z-index: 1;
+}
+.tabs {
+    text-decoration: none; /* Remove the underline */
+    color: inherit; /* Set color to inherit from parent element */
+    font-weight: inherit; /* Set font weight to inherit from parent element */
+    font-size: inherit; /* Set font size to inherit from parent element */
+    font-family: inherit; /* Set font family to inherit from parent element */
+    cursor: text; /* Change cursor to text (like normal text) */
+}
+.dashboard{
+    margin-left:30px;
+}
+.tabs{
+    margin:0 40px 0;
+    cursor: pointer;
+}
+.account {
+    margin-left: auto;
+    margin-top:-10px;
+    height: 50px;
+    position: relative;
+}
+.accIcon{
+    height:50px;
+    float: right;
+    cursor: pointer;
+}
+.accTitle{
+    position: relative;
+    background-color: #fffaf0;
+    margin: 50px -20px;
+    height: 120px;
+    width: 200px;
+    border-radius: 10px;
+    backdrop-filter: none;
+    display: none;
+    padding: 20px 0 0
+}
+/*.accTitle::before {
+    content: '';
+    position: absolute;
+    top: -10px; 
+    left: 80%;
+    transform: translateX(-60%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fffaf0; 
+}*/
+#logout{
+    height: 30px;
+    margin:10px;
+}
+.accIcon:hover + .accTitle,
+.accTitle:hover{
+    display: block;
+}
+
+.accDetail{
+    background-color: transparent;
+    height: 30px;
+    width: 100%;
+    padding-left: 10px;
+    border: 0;
+    margin: 0;
+}
+#login{
+    padding: 0px 0px;
+    margin:10% 10%;
+    width: 80%;
+    background-color: #00291c;
+    color: #fff;
+    font-family: 'Century Gothic', sans-serif;
+    border-radius: 100px;
+    border-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 25px;
+
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); 
+}
+.container {
+    position: relative; 
+    z-index: 1; 
+    max-width: 600px;
+    margin: 120px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.div1 {
+    display: flex;
+    max-width: 600px;
+}
+
+.div1a {
+    text-align: center;
+    margin: 10px auto;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"] {
+    width: calc(100% - 22px);
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+select {
+    width: 180px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+button {
+    padding: 15px 24px;
+    margin:20px 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+button:hover {
+    background-color: #45a049;
+}
