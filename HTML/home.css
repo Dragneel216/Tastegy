@@ -15,7 +15,7 @@ body {
     height: 100%;
     background-color: rgba(255, 255, 255, 0.8); 
 }
-.container {
+.navigation {
     position: relative; 
     font-family: 'Baskerville Old Face', serif;
     z-index: 100;
@@ -32,7 +32,7 @@ body {
 .logo{
     margin-top: -40px;
     height: 120px;
-    margin-right: auto;
+    margin-right: 20%;
     z-index: 1;
 }
 .tabs {
@@ -44,10 +44,11 @@ body {
     cursor: text; /* Change cursor to text (like normal text) */
 }
 .dashboard{
-    margin: 0 auto;
+    margin-left:30px;
 }
 .tabs{
     margin:0 40px 0;
+    cursor: pointer;
 }
 .account {
     margin-left: auto;
@@ -58,30 +59,60 @@ body {
 .accIcon{
     height:50px;
     float: right;
+    cursor: pointer;
 }
 .accTitle{
     position: relative;
     background-color: #fffaf0;
-    margin: 80px -20px;
+    margin: 50px -20px;
     height: 120px;
     width: 200px;
     border-radius: 10px;
     backdrop-filter: none;
+    display: none;
+    padding: 20px 0 0
 }
-.accTitle::before {
+/*.accTitle::before {
     content: '';
     position: absolute;
-    top: -10px; /* Adjust this value to align with the element above */
-    left: 80%; /* Align with the center of the .accTitle div */
+    top: -10px; 
+    left: 80%;
     transform: translateX(-60%);
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-bottom: 10px solid #fffaf0; /* Match the background color of .accTitle */
+    border-bottom: 10px solid #fffaf0; 
+}*/
+#logout{
+    height: 30px;
+    margin:10px;
 }
-.accDetail:hover{
+.accIcon:hover + .accTitle,
+.accTitle:hover{
+    display: block;
+}
+
+.accDetail{
+    background-color: transparent;
+    height: 30px;
+    width: 100%;
+    padding-left: 10px;
+    border: 0;
+    margin: 0;
+}
+#login{
+    padding: 0px 0px;
+    margin:10% 10%;
+    width: 80%;
+    background-color: #00291c;
+    color: #fff;
+    font-family: 'Century Gothic', sans-serif;
+    border-radius: 100px;
+    border-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 25px;
 
 }
-
 .central{
     position: relative;
     z-index: 1; 
@@ -115,7 +146,10 @@ body {
     font-stretch: wider;
 
 }
-
+.but{
+    background-color: transparent;
+    border: 0;
+}
 .buttonk{
     padding: 20px 40px;
     margin-bottom: 5%;
@@ -129,6 +163,6 @@ body {
     transition: background-color 0.3s ease;
     font-size: 25px;
 }
-button:hover {
+.buttonk:hover {
     background-color: #45a049;
 }
