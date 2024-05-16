@@ -46,7 +46,7 @@
         <div class="recipe-container" id="recipeContainer">
             {% if recommended_recipes %}
             {% for recipe in recommended_recipes %}
-            <div class="recipe-card">
+            <div class="recipe-card" data-total-time="{{ recipe.TotalTimeInMins }}" data-index-no="{{ recipe.IndexNo }}">
                 <a href="/recipe/{{recipe.Srno}}">
                     {% if recipe.ImageURLs %}
                             <div class="recipe-images">
