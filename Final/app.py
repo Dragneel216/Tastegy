@@ -14,8 +14,6 @@ import multiprocessing as mp
 from sklearn.decomposition import NMF
 from sklearn.decomposition import LatentDirichletAllocation as LDA
 
-indices = None
-
 app = Flask(__name__, static_folder="static")
 
 df=pd.read_csv("IndianFoodDatasetCSV.csv")
@@ -58,25 +56,17 @@ def recommend_recipes(user_ingredients, user_dietary_preference, user_cuisine_ty
 
     # Get indices of recommended recipes
     top_indices = similarity_scores.argsort()[0][-10:][::-1]
-    
-    indices = top_indices
-
-    # Sort recommended recipes by preparation time if selected
-    top_indices = sort_recipes(top_indices, sort_by) 
 
     # Get recommended recipes
     recommended_recipes = df.iloc[top_indices]
+    for index, row in recommended_recipes.iterrows():
+            recommended_recipes.at[index, 'IndexNo'] = index
     return recommended_recipes
 
 @app.route("/")
 def home():
     # Display the home (using render_template)
     return render_template("home.html")
-
-# @app.route("/")
-# def findRecipes():
-#     # Display the form (using render_template)
-#     return render_template("recipeSearchPage.html")
 
 @app.route("/search")
 def findRecipes():
@@ -116,8 +106,8 @@ def recommend():
             image_urls = scrape_images(recipe_url)
             recommended_recipes.at[index, 'ImageURLs'] = image_urls
 
-    print("Recommended recipes sorted by", sort_by)
-    print(recommended_recipes)
+    # print("Recommended recipes sorted by", sort_by)
+    # print(recommended_recipes)
     user_ingredients = ""
     user_dietary_preference = ""
     user_cuisine_type = ""
@@ -142,19 +132,6 @@ def get_recipe_details(recipe_id):
     # Assuming `df` is your Pandas DataFrame containing recipe data
     recipe = df[df['Srno'] == recipe_id].iloc[0]  # Replace 'Srno' with your unique identifier
     return recipe
-
-#Sort function
-def sort_recipes(top_indices, sort_by):
-    if sort_by == 'default':
-        return indices
-    elif sort_by == 'TotalTimeInMinsAsc':
-        sorted_indices = df.iloc[top_indices]['TotalTimeInMins'].argsort()
-        top_indices = top_indices[sorted_indices]
-        return top_indices
-    elif sort_by == 'TotalTimeInMinsDesc':
-        sorted_indices = df.iloc[top_indices]['TotalTimeInMins'].argsort()[::-1]
-        top_indices = top_indices[sorted_indices]
-        return top_indices
 
 def scrape_images(url):
     specific_image_urls = []
