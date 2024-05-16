@@ -1,7 +1,15 @@
-/* styles.css */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f5f5f5;
+    background-image: url('https://images.pexels.com/photos/350417/pexels-photo-350417.jpeg?auto=compress&cs=tinysrgb&w=600');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    backdrop-filter: blur(5px); /* Apply a blur effect to the background */
+    height: 100vh; /* Set HTML element height to 100% of the viewport height */
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Light gray background */
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -12,39 +20,37 @@ body {
 
 .tip-container {
     background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 80px 100px;
+    margin:10px 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 1);
+    background-color: rgba(255, 255, 255,0.5);
     text-align: center;
     max-width: 400px;
     width: 100%;
 }
-
-.tip-container h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
 .tip-container p {
     font-size: 18px;
-    color: #555;
-    margin-bottom: 20px;
-    min-height: 50px; /* Ensures the text area is visible even when empty */
+    color: #00291c;
+    line-height: 1.6;
+    margin-bottom: 30px;
 }
-
+h1{
+    font-family: 'Baskerville Old Face', serif;
+    color: #00291c;
+}
 .tip-container button {
-    background-color: #007BFF;
-    color: white;
+    background-color: #00291c; /* Blue primary color for buttons */
+    color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-    margin: 5px;
+    margin: 10px;
     transition: background-color 0.3s ease;
 }
 
 .tip-container button:hover {
-    background-color: #0056b3;
+    background-color: #45a049; /* Darker blue on hover */
 }
