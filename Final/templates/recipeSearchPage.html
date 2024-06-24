@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Recommendation</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/recipeSearch.css') }}">
+</head>
+<body>
+    <div class="navigation">
+        <img class="logo" src="{{ url_for('static', filename='images/TASTEGY (3).png') }}">
+        <nav class="dashboard">
+            <a class="tabs" href="/tips">Tips</a> |
+            <a class="tabs" href="/about">About Us</a> |
+            <a class="tabs" href="/contact">Contact Us</a> 
+        </nav>  
+        <div class="account">
+            <img class="accIcon" src="{{ url_for('static', filename='images/user.png') }}">
+            <div class="accTitle">
+                <div class="accSub">
+                    <input class="accDetail" id="headUid" disabled>
+                    <input class="accDetail" id="headMail" disabled>
+                    <button class="but"><img class="button" id="logout" src="{{ url_for('static', filename='images/logout.png') }}"></button>
+                </div>
+                <button class="but" id="login">SIGN IN</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Find Recipes Based on Available Ingredients</h1>
+        <form action="/recommend" method="POST">
+            <label for="ingredients">Enter your available ingredients</label>
+            <input type="text" id="ingredients" name="ingredients" placeholder="E.g., chicken, rice, onion">
+            <div class="div1">
+                <div class="div1a">
+                    <label for="diet">Enter the Diet</label>
+                    <select id="diet" name="diet">
+                        <option value="default">None</option>
+                        <option value="Vegetarian">Vegetarian</option>
+                        <option value="Non Vegetarian">Non-Vegetarian</option>
+                        <option value="Vegan">Vegan</option>
+                    </select>
+                </div>
+                <div class="div1a">
+                    <label for="cuisine">Enter the cuisine</label>
+                    <select id="cuisine" name="cuisine">
+                        <option value="">Any</option>
+                        <option value="SouthIndian">South Indian</option>
+                        <option value="NorthIndian">North Indian</option>
+                        <option value="Andhra">Andhra</option>
+                        <option value="Assamese">Assamese</option>
+                        <option value="Awadhi">Awadhi</option>
+                        <option value="Bengali">Bengali</option>
+                        <option value="Bihari">Bihari</option>
+                        <option value="Chettinad">Chettinad</option>
+                        <option value="Coorg">Coorg</option>
+                        <option value="Fusion">Fusion</option>
+                        <option value="Goan">Goan</option>
+                        <option value="Gujarati">Gujarati</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal">Himachal</option>
+                        <option value="Hyderabadi">Hyderabadi</option>
+                        <option value="Indian">Indian</option>
+                        <option value="IndoChinese">Indo Chinese</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Kannada">Kannada</option>
+                        <option value="Kashmiri">Kashmiri</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Kongunadu">Kongunadu</option>
+                        <option value="Konkan">Konkan</option>
+                        <option value="Lucknowi">Lucknowi</option>
+                        <option value="Maharashtrian">Maharashtrian</option>
+                        <option value="Malabar">Malabar</option>
+                        <option value="Malvani">Malvani</option>
+                        <option value="Mangalorean">Mangalorean</option>
+                        <option value="Mughlai">Mughlai</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="NorthEast">North East Indian</option>
+                        <option value="Oriya">Oriya</option>
+                        <option value="Parsi">Parsi</option>
+                        <option value="Punjabi">Punjabi</option>
+                        <option value="Rajasthani">Rajasthani</option>
+                        <option value="Sindhi">Sindhi</option>
+                        <option value="TamilNadu">Tamil Nadu</option>
+                        <option value="Udupi">Udupi</option>
+                        <option value="UttarPradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit">Search Recipes</button>
+        </form>
+    </div>
+</body>
+<script>
+    var username=localStorage.getItem('uid');
+    var emailid=localStorage.getItem('mail');
+    console.log(username,emailid);
+    if(username && emailid){
+        document.querySelector(".accTitle").style.height='120px';
+        document.querySelector(".accSub").style.display="block";
+        document.getElementById("login").style.display="none";
+        document.getElementById("headUid").value=username;
+        document.getElementById("headMail").value=emailid;
+    }
+    else{
+        document.querySelector(".accTitle").style.height='80px';
+        document.querySelector(".accSub").style.display="none";
+        document.getElementById("login").style.display="block";
+    }
+
+    document.querySelector('.logo').addEventListener('click', function(){
+            window.location.href="/";
+    })
+    document.getElementById("logout").addEventListener("click", function(){
+        localStorage.removeItem('name');
+        localStorage.removeItem('mail');
+        window.location.href="/";
+    })
+    document.getElementById("login").addEventListener("click", function(){
+        window.location.href="/login";
+    })
+    document.getElementById('search').addEventListener('click', function(){
+        if(username && emailid){
+            window.location.href="/search";
+        }
+        else{
+            window.location.href="/login";
+        }
+    })
+</script>
+</html>
